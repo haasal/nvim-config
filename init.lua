@@ -19,7 +19,7 @@ map("n", "<A-a>", "<Cmd>BufferCloseAllButCurrent<CR>", opts)
 
 local wk = require("which-key")
 wk.register({
-	["<leader>fmt"] = { "<cmd>Neoformat<cr>", "Format document" },
+	["<leader>s"] = { "<cmd>Neoformat<cr>", "Format document" },
 })
 wk.register({
 	["<leader>t"] = {
@@ -45,9 +45,10 @@ opt.expandtab = true
 require("github-theme").setup({
 	theme_style = "light",
 })
-
 -- LSP Servers
-require("lspconfig").pyright.setup({})
+vim.g.coq_settings = { auto_start = true }
+local coq = require("coq")
+require("lspconfig").pyright.setup({ coq.lsp_ensure_capabilities() })
 require("lspconfig").rust_analyzer.setup({})
 
 require("lualine").setup()
