@@ -11,6 +11,7 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>")
 
 map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
 map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
@@ -48,19 +49,31 @@ require("github-theme").setup({
 })
 
 -- LSP Servers
-vim.g.coq_settings = { auto_start = true }
-local coq = require("coq")
-local lspconfig = require("lspconfig")
+require("mason").setup()
+require("mason-lspconfig").setup()
 
-servers = {
-	"pyright",
-	"rust_analyzer",
-	"lua_language_server",
-}
+require("mason-lspconfig").setup_handlers({
+	-- The first entry (without a key) will be the default handler
+	-- and will be called for each installed server that doesn't have
+	-- a dedicated handler.
+	function(server_name) -- default handler (optional)
+		require("lspconfig")[server_name].setup({})
+	end,
 
-for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup(coq.lsp_ensure_capabilities({}))
-end
+	["rust_analyzer"] = function()
+		local rt = require("rust-tools")
+		rt.setup({
+			server = {
+				on_attach = function(_, bufnr)
+					-- Hover actions
+					vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+					-- Code action groups
+					vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+				end,
+			},
+		})
+	end,
+})
 
 -- Lualine
 require("lualine").setup()
@@ -105,3 +118,69 @@ require("nvim-web-devicons").setup({
 	color_icons = true,
 	default = true,
 })
+
+-- Glow
+require("glow").setup()
+
+require("illuminate")
+require("Comment").setup()
+
+-- Completion Plugin Setup
+local cmp = require("cmp")
+cmp.setup({
+	-- Enable LSP snippets
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
+	},
+	mapping = {
+		["<C-p>"] = cmp.mapping.select_prev_item(),
+		["<C-n>"] = cmp.mapping.select_next_item(),
+		-- Add tab support
+		["<S-Tab>"] = cmp.mapping.select_prev_item(),
+		["<Tab>"] = cmp.mapping.select_next_item(),
+		["<C-S-f>"] = cmp.mapping.scroll_docs(-4),
+		["<C-f>"] = cmp.mapping.scroll_docs(4),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-e>"] = cmp.mapping.close(),
+		["<CR>"] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Insert,
+			select = true,
+		}),
+	},
+	-- Installed sources:
+	sources = {
+		{ name = "path" }, -- file paths
+		{ name = "nvim_lsp", keyword_length = 3 }, -- from language server
+		{ name = "nvim_lsp_signature_help" }, -- display function signatures with current parameter emphasized
+		{ name = "nvim_lua", keyword_length = 2 }, -- complete neovim's Lua runtime API such vim.lsp.*
+		{ name = "buffer", keyword_length = 2 }, -- source current buffer
+		{ name = "calc" }, -- source for math calculation
+        { name = 'luasnip' },
+	},
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	},
+	formatting = {
+		fields = { "menu", "abbr", "kind" },
+		format = function(entry, item)
+			local menu_icon = {
+				nvim_lsp = "λ",
+				vsnip = "⋗",
+				buffer = "Ω",
+				path = "🖫",
+			}
+			item.menu = menu_icon[entry.source.name]
+			return item
+		end,
+	},
+})
+
+
+-- snippets
+require("luasnip.loaders.from_vscode").lazy_load()
+
+-- Load other files
+vim.cmd('source' .. vim.fn.stdpath("config") .. '/mappings.vim')

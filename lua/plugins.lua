@@ -1,6 +1,10 @@
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
+	-- Package manager
+	use("williamboman/mason.nvim")
+	use("williamboman/mason-lspconfig.nvim")
+
 	-- Syntax highlghting
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -20,9 +24,19 @@ return require("packer").startup(function(use)
 	use("projekt0n/github-nvim-theme")
 
 	-- Auto-Completion
-	use({ "ms-jpq/coq_nvim", branch = "coq" })
-	use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
+	use("hrsh7th/nvim-cmp")
 
+	-- LSP completion source:
+	use("hrsh7th/cmp-nvim-lsp")
+
+	-- Useful completion sources:
+	use("hrsh7th/cmp-nvim-lua")
+	use("hrsh7th/cmp-nvim-lsp-signature-help")
+	use("hrsh7th/cmp-vsnip")
+	use("hrsh7th/cmp-path")
+	use("hrsh7th/cmp-buffer")
+	use("saadparwaiz1/cmp_luasnip")
+    
 	-- Status line
 	use({
 		"nvim-lualine/lualine.nvim",
@@ -87,7 +101,12 @@ return require("packer").startup(function(use)
 	})
 
 	-- Commenting
-	use("tpope/vim-commentary")
+	use({
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	})
 
 	-- Tabs
 	use({ "romgrk/barbar.nvim", wants = "nvim-web-devicons" })
@@ -112,4 +131,16 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
+
+	-- markdown preview
+	use({ "ellisonleao/glow.nvim" })
+
+	use("RRethy/vim-illuminate")
+
+	-- Rust support
+	use("simrat39/rust-tools.nvim")
+
+	-- snippets
+	use("rafamadriz/friendly-snippets")
+	use({ "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" })
 end)
