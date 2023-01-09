@@ -12,23 +12,22 @@ vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
--- Move to previous/next
-map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
-map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
-map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
+map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
+map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
+map("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
+map("n", "<A-a>", "<Cmd>BufferCloseAllButCurrent<CR>", opts)
 
 local wk = require("which-key")
 wk.register({
 	["<leader>fmt"] = { "<cmd>Neoformat<cr>", "Format document" },
 })
 wk.register({
-    ["<leader>t"] = {
-        name = "tree",
-        t = {"<cmd>NvimTreeToggle<cr>", "Toggle file tree"},
-        f = {"<cmd>NvimTreeFindFile<cr>", "Find file"},
-    }
+	["<leader>t"] = {
+		name = "tree",
+		t = { "<cmd>NvimTreeToggle<cr>", "Toggle file tree" },
+		f = { "<cmd>NvimTreeFindFile<cr>", "Find file" },
+	},
 })
-
 
 -- vim options
 local opt = vim.opt

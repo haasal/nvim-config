@@ -14,7 +14,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-    use 'nvim-tree/nvim-web-devicons'
+	use("nvim-tree/nvim-web-devicons")
 
 	-- Github Color Theme
 	use("projekt0n/github-nvim-theme")
@@ -85,10 +85,10 @@ return require("packer").startup(function(use)
 			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 		end,
 	})
-	
+
 	-- Commenting
-	use 'tpope/vim-commentary'
-    
-    -- Tabs
-    use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
+	use("tpope/vim-commentary")
+
+	-- Tabs
+	use({ "romgrk/barbar.nvim", wants = "nvim-web-devicons" })
 end)
