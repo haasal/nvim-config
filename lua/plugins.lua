@@ -36,7 +36,7 @@ return require("packer").startup(function(use)
 	use("hrsh7th/cmp-path")
 	use("hrsh7th/cmp-buffer")
 	use("saadparwaiz1/cmp_luasnip")
-    
+
 	-- Status line
 	use({
 		"nvim-lualine/lualine.nvim",
@@ -143,4 +143,9 @@ return require("packer").startup(function(use)
 	-- snippets
 	use("rafamadriz/friendly-snippets")
 	use({ "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" })
+	-- docstring generator
+	use({
+		"kkoomen/vim-doge",
+		run = ":call doge#install()",
+	})
 end)
