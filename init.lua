@@ -42,15 +42,27 @@ opt.tabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
 
+-- Theme
 require("github-theme").setup({
 	theme_style = "light",
 })
+
 -- LSP Servers
 vim.g.coq_settings = { auto_start = true }
 local coq = require("coq")
-require("lspconfig").pyright.setup({ coq.lsp_ensure_capabilities() })
-require("lspconfig").rust_analyzer.setup({})
+local lspconfig = require("lspconfig")
 
+servers = {
+	"pyright",
+	"rust_analyzer",
+	"lua_language_server",
+}
+
+for _, lsp in ipairs(servers) do
+	lspconfig[lsp].setup(coq.lsp_ensure_capabilities({}))
+end
+
+-- Lualine
 require("lualine").setup()
 
 -- Tree

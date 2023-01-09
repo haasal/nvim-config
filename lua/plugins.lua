@@ -91,4 +91,25 @@ return require("packer").startup(function(use)
 
 	-- Tabs
 	use({ "romgrk/barbar.nvim", wants = "nvim-web-devicons" })
+
+	-- todo highlghting
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup({
+				keywords = {
+					VULN = { icon = " ", color = "warning" },
+					NOTE = { icon = " ", color = "info", alt = { "INFO" } },
+					HACK = { icon = " ", color = "error" },
+				},
+				colors = {
+					warning = { "#F1D302" },
+					error = { "#C1292E" },
+					info = { "#2563EB" },
+					hint = { "#10B981" },
+				},
+			})
+		end,
+	})
 end)

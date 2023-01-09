@@ -12,5 +12,7 @@
 - prettier
 - nvim
 - python
+- packer
+- nerd font
 
 - run `:COQdeps`
