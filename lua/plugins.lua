@@ -149,6 +149,9 @@ return require("packer").startup(function(use)
 		run = ":call doge#install()",
 	})
 
-    -- Emmet
-    use 'mattn/emmet-vim'
+	-- Emmet
+	use("mattn/emmet-vim")
+
+	-- Floating terminal
+	use("voldikss/vim-floaterm")
 end)

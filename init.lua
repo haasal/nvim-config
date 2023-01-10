@@ -44,6 +44,13 @@ opt.shiftwidth = 4
 opt.expandtab = true
 opt.autoindent = true
 
+-- Floatterm
+vim.g.floaterm_keymap_new = "<F7>"
+vim.g.floaterm_keymap_prev = "<F9>"
+vim.g.floaterm_keymap_next = "<F10>"
+vim.g.floaterm_keymap_toggle = "<F12>"
+vim.g.floaterm_keymap_kill = "<F8>"
+
 -- Theme
 require("github-theme").setup({
 	theme_style = "light",
@@ -158,7 +165,7 @@ cmp.setup({
 		{ name = "nvim_lua", keyword_length = 2 }, -- complete neovim's Lua runtime API such vim.lsp.*
 		{ name = "buffer", keyword_length = 2 }, -- source current buffer
 		{ name = "calc" }, -- source for math calculation
-        { name = 'luasnip' },
+		{ name = "luasnip" },
 	},
 	window = {
 		completion = cmp.config.window.bordered(),
@@ -179,9 +186,8 @@ cmp.setup({
 	},
 })
 
-
 -- snippets
 require("luasnip.loaders.from_vscode").lazy_load()
 
 -- Load other files
-vim.cmd('source' .. vim.fn.stdpath("config") .. '/mappings.vim')
+vim.cmd("source" .. vim.fn.stdpath("config") .. "/mappings.vim")
