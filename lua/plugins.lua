@@ -67,7 +67,7 @@ return require("packer").startup(function(use)
 	use("sbdchd/neoformat")
 
 	-- autoclose brackets etc.
-	use("Raimondi/delimitMate")
+	use("jiangmiao/auto-pairs")
 
 	-- Terminal autocompletion
 	use({
@@ -148,4 +148,7 @@ return require("packer").startup(function(use)
 		"kkoomen/vim-doge",
 		run = ":call doge#install()",
 	})
+
+    -- Emmet
+    use 'mattn/emmet-vim'
 end)
