@@ -20,8 +20,13 @@ return require("packer").startup(function(use)
 
 	use("nvim-tree/nvim-web-devicons")
 
-	-- Github Color Theme
+	-- Color Theme
+	use("folke/tokyonight.nvim")
 	use("projekt0n/github-nvim-theme")
+	use({
+		"rose-pine/neovim",
+		as = "rose-pine",
+	})
 
 	-- Auto-Completion
 	use("hrsh7th/nvim-cmp")

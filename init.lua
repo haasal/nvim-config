@@ -43,6 +43,8 @@ opt.tabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
 opt.autoindent = true
+opt.background = "light"
+opt.textwidth = 80
 
 -- Floatterm
 vim.g.floaterm_keymap_new = "<F7>"
@@ -52,8 +54,14 @@ vim.g.floaterm_keymap_toggle = "<F12>"
 vim.g.floaterm_keymap_kill = "<F8>"
 
 -- Theme
-require("github-theme").setup({
-	theme_style = "light",
+-- require("github-theme").setup({
+-- 	theme_style = "light",
+-- })
+vim.cmd("colorscheme rose-pine")
+require("lualine").setup({
+	options = {
+		theme = "rose-pine",
+	},
 })
 
 -- LSP Servers
@@ -82,9 +90,6 @@ require("mason-lspconfig").setup_handlers({
 		})
 	end,
 })
-
--- Lualine
-require("lualine").setup()
 
 -- Tree
 vim.g.loaded_netrw = 1
@@ -193,21 +198,9 @@ require("luasnip.loaders.from_vscode").lazy_load()
 vim.cmd("source" .. vim.fn.stdpath("config") .. "/mappings.vim")
 
 -- Trouble
-vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-  {silent = true, noremap = true}
-)
-vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-  {silent = true, noremap = true}
-)
-vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
-  {silent = true, noremap = true}
-)
-vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-  {silent = true, noremap = true}
-)
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-  {silent = true, noremap = true}
-)
-vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
-  {silent = true, noremap = true}
-)
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", { silent = true, noremap = true })
