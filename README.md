@@ -1,18 +1,19 @@
 # Neovim Config
 
-## Add new language support
+## Installation (Arch)
 
-- Install Language server
-- Enable Language server
-- Install formatter
-- Install Treesitter extension
+Install a Packer (Package Manager) and patched font
 
-## Prerequisits
+```bash
+yay -S nvim-packer-git ttf-firacode-nerd
+git clone https://github.com/haasal/nvim-config ~/.config/nvim
+```
 
-- prettier
-- nvim
-- python
-- packer
-- nerd font
+Inside nvim press *s* (`:PackerSync`) to sync packages.
+This step might have to be repeated.
 
-- run `:COQdeps`
+## Setup for a new language/framework
+
+Use `:MasonInstall` to install a language server, linter, formatter and other
+utilities you need.
+Use `:TSInstall` to install the Treesitter package for your language.
