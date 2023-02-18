@@ -165,7 +165,37 @@ return require("packer").startup(function(use)
 		"glepnir/dashboard-nvim",
 		event = "VimEnter",
 		config = function()
-			require("dashboard").setup()
+			require("dashboard").setup({
+				theme = "hyper",
+				config = {
+					week_header = {
+						enable = true,
+					},
+					shortcut = {
+						{
+							icon = " ",
+							icon_hl = "@variable",
+							desc = "Files",
+							group = "Label",
+							action = "Telescope find_files",
+							key = "f",
+						},
+                        {
+                            icon = "󰚰 ",
+                            desc = "Sync",
+                            action ="PackerSync",
+                            key = "s"
+                        },
+                        {
+                            icon = " ",
+                            group = "Config",
+                            desc = "Config",
+                            action = "e ~/.config/nvim",
+                            key = "c"
+                        }
+					},
+				},
+			})
 		end,
 		requires = { "nvim-tree/nvim-web-devicons" },
 	})
