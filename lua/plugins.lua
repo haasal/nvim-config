@@ -160,6 +160,16 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- Dashboard
+	use({
+		"glepnir/dashboard-nvim",
+		event = "VimEnter",
+		config = function()
+			require("dashboard").setup()
+		end,
+		requires = { "nvim-tree/nvim-web-devicons" },
+	})
+
 	-- Rust support
 	use("simrat39/rust-tools.nvim")
 
