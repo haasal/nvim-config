@@ -18,7 +18,15 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	use("nvim-tree/nvim-web-devicons")
+	use({
+		"nvim-tree/nvim-web-devicons",
+		config = function()
+			require("nvim-web-devicons").setup({
+				color_icons = true,
+				default = true,
+			})
+		end,
+	})
 
 	-- Color Theme
 	use("folke/tokyonight.nvim")
@@ -138,15 +146,30 @@ return require("packer").startup(function(use)
 	})
 
 	-- markdown preview
-	use({ "ellisonleao/glow.nvim" })
+	use({
+		"ellisonleao/glow.nvim",
+		config = function()
+			require("glow").setup()
+		end,
+	})
 
-	use("RRethy/vim-illuminate")
+	use({
+		"RRethy/vim-illuminate",
+		config = function()
+			require("illuminate")
+		end,
+	})
 
 	-- Rust support
 	use("simrat39/rust-tools.nvim")
 
 	-- snippets
-	use("rafamadriz/friendly-snippets")
+	use({
+		"rafamadriz/friendly-snippets",
+		config = function()
+			require("luasnip.loaders.from_vscode").lazy_load()
+		end,
+	})
 	use({ "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" })
 	-- docstring generator
 	use({
@@ -168,4 +191,6 @@ return require("packer").startup(function(use)
 			require("trouble").setup({})
 		end,
 	})
+
+	use("wuelnerdotexe/vim-astro")
 end)
