@@ -19,6 +19,14 @@ return require("packer").startup(function(use)
 	})
 
 	use({
+		"lukas-reineke/headlines.nvim",
+		after = "nvim-treesitter",
+		config = function()
+			require("headlines").setup()
+		end,
+	})
+
+	use({
 		"nvim-tree/nvim-web-devicons",
 		config = function()
 			require("nvim-web-devicons").setup({
@@ -180,19 +188,19 @@ return require("packer").startup(function(use)
 							action = "Telescope find_files",
 							key = "f",
 						},
-                        {
-                            icon = "󰚰 ",
-                            desc = "Sync",
-                            action ="PackerSync",
-                            key = "s"
-                        },
-                        {
-                            icon = " ",
-                            group = "Config",
-                            desc = "Config",
-                            action = "e ~/.config/nvim",
-                            key = "c"
-                        }
+						{
+							icon = "󰚰 ",
+							desc = "Sync",
+							action = "PackerSync",
+							key = "s",
+						},
+						{
+							icon = " ",
+							group = "Config",
+							desc = "Config",
+							action = "e ~/.config/nvim",
+							key = "c",
+						},
 					},
 				},
 			})
